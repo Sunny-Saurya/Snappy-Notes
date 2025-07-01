@@ -1,3 +1,7 @@
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
+app.set("trust proxy", 1); // required for cross-origin cookies on Render
+
 require("dotenv").config();
 const mongoose = require("mongoose");
 const express = require("express");
@@ -57,6 +61,28 @@ app.post("/createAccount", async (req, res) => {
 
 
 // ✅ Login
+// app.post("/login", async (req, res) => {
+//   const { email, password } = req.body;
+
+//   if (!email || !password) {
+//     return res.status(400).json({ error: true, message: "Email and password are required" });
+//   }
+
+//   const user = await User.findOne({ email });
+//   if (!user) {
+//     return res.status(400).json({ error: true, message: "Email not found" });
+//   }
+
+//   const isMatch = await bcrypt.compare(password, user.password);
+//   if (!isMatch) {
+//     return res.status(400).json({ error: true, message: "Invalid email or password" });
+//   }
+
+//   const accessToken = jwt.sign({ userId: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "10h" });
+
+//   return res.json({ error: false, message: "Login successful", accessToken });
+// });
+
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -76,7 +102,15 @@ app.post("/login", async (req, res) => {
 
   const accessToken = jwt.sign({ userId: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "10h" });
 
-  return res.json({ error: false, message: "Login successful", accessToken });
+  // ✅ Set HTTP-only cookie
+  res.cookie("token", accessToken, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "None", // Required for cross-origin cookies (e.g., Vercel + localhost)
+    maxAge: 10 * 60 * 60 * 1000, // 10 hours
+  });
+
+  return res.json({ error: false, message: "Login successful" });
 });
 
 
