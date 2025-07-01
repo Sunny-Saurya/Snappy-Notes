@@ -1,6 +1,4 @@
 const cookieParser = require("cookie-parser");
-app.use(cookieParser());
-app.set("trust proxy", 1); // required for cross-origin cookies on Render
 
 require("dotenv").config();
 const mongoose = require("mongoose");
@@ -15,6 +13,8 @@ const { authenticateToken } = require('./utilities');
 
 const app = express();
 const port = process.env.PORT || 4000;
+app.use(cookieParser());
+app.set("trust proxy", 1); // required for cross-origin cookies on Render
 
 // Connect MongoDB
 mongoose.connect(process.env.MONGO_URI, {})
@@ -24,8 +24,8 @@ mongoose.connect(process.env.MONGO_URI, {})
 // Middleware
 app.use(express.json());
 app.use(cors({
-  // origin: "http://localhost:5173",
-  origin: "https://snappy-notes.vercel.app",
+  origin: "http://localhost:5173",
+  // origin: "https://snappy-notes.vercel.app",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
