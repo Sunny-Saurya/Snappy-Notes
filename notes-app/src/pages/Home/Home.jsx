@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
 import Toast from "../../components/ToastMessage/Toast";
 import EmptyCard from "../../components/EmptyNote/EmptyCard";
+import "../../index.css"; // Import your CSS file for styles
 
 const Home = () => {
   const [openAddEditModal, setOpenAddEditModal] = useState({
@@ -140,33 +141,33 @@ const Home = () => {
 
   return (
     <>
-      <Navbar userInfo={userInfo} onSearchNote={onSearchNote} handleClearSearch= {handleClearSearch} />
+  <div className="neon-bg" />
+  <Navbar userInfo={userInfo} onSearchNote={onSearchNote} handleClearSearch={handleClearSearch} />
 
-      <div className="container mx-auto">
-      <div className="grid grid-cols-3 gap-4 mt-8">
-  {Array.isArray(allNotes) && allNotes.length > 0 ? (
-    allNotes.map((item) => (
-      <NoteCard
-        key={item._id}
-        title={item.title}
-        content={item.content}
-        date={item.createdon}
-        tags={item.tags}
-        isPinned={item.isPinned}
-        onEdit={() => handleEdit(item)}
-        onDelete={() => deleteNode(item)}
-        onPinNote={() => {}}
-      />
-    ))
-  ) : (
-    // <p className="text-center col-span-3">No notes available.</p>
-    <EmptyCard/>
-  )}
-</div>
-      </div>
+  <div className="container mx-auto relative z-10">
+    <div className="grid grid-cols-3 gap-4 mt-8">
+      {Array.isArray(allNotes) && allNotes.length > 0 ? (
+        allNotes.map((item) => (
+          <NoteCard
+            key={item._id}
+            title={item.title}
+            content={item.content}
+            date={item.createdon}
+            tags={item.tags}
+            isPinned={item.isPinned}
+            onEdit={() => handleEdit(item)}
+            onDelete={() => deleteNode(item)}
+            onPinNote={() => {}}
+          />
+        ))
+      ) : (
+        <EmptyCard />
+      )}
+    </div>
+  </div>
 
       <button
-        className="w-16 h-16 flex items-center justify-center rounded-2xl bg-primary hover:bg-yellow-600 absolute right-10 bottom-10"
+        className="w-16 h-16 flex items-center justify-center rounded-2xl bg-purple-500 hover:bg-purple-600 absolute right-10 bottom-10"
         onClick={() => {
           setOpenAddEditModal({
             isShown: true,
@@ -175,7 +176,7 @@ const Home = () => {
           });
         }}
       >
-        <MdAdd className="texst-[32px] text-white" />
+        <MdAdd className="text-[32px] text-white" />
       </button>
 
       <Modal

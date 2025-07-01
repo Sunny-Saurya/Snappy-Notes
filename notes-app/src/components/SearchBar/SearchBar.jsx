@@ -1,23 +1,39 @@
-import React from 'react'
-import {FaMagnifyingGlass} from 'react-icons/fa6'
-import {IoMdClose} from 'react-icons/io'
-const SearchBar = ({value, onChange, handleSearch, onClearSearch}) => {
+import React from 'react';
+import { FiSearch, FiX } from 'react-icons/fi';
+
+const SearchBar = ({ value, onChange, handleSearch, onClearSearch, darkMode = false }) => {
   return (
-    <div className='w-88 flex items-center px-4 bg-slate-100 rounded-md'>
-      <input
-      type='text'
-      placeholder='Search Notes'
-      className='w-full text-xs bg-transparent py-[11px] outline-none'
-      onChange={onchange}
-    
-    />
-
-    { value && (<IoMdClose className ="text-xl text-slate-500 cursor-pointer hover:text-black mr-3 "
-    />)}
-
-    <FaMagnifyingGlass className='text-slate-400 cursor-pointer hover:text-black' />
+    <div className={`relative ${darkMode ? 'text-white' : 'text-gray-800'}`}>
+      <div className="flex items-center">
+        <input
+          type="text"
+          value={value}
+          onChange={onChange}
+          onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+          placeholder="Search notes..."
+          className={`w-full py-2 pl-10 pr-8 rounded-lg focus:outline-none ${
+            darkMode 
+              ? 'bg-[#1A1A1A] border border-gray-700 focus:border-purple-500 text-white' 
+              : 'bg-gray-100 border border-gray-200 focus:border-blue-500'
+          }`}
+        />
+        {value ? (
+          <button
+            onClick={onClearSearch}
+            className={`absolute right-10 ${darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-gray-700'}`}
+          >
+            <FiX size={18} />
+          </button>
+        ) : null}
+        <button
+          onClick={handleSearch}
+          className={`absolute right-3 ${darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-gray-700'}`}
+        >
+          <FiSearch size={18} />
+        </button>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default SearchBar
+export default SearchBar;
