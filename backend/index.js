@@ -24,8 +24,8 @@ mongoose.connect(process.env.MONGO_URI, {})
 // Middleware
 app.use(express.json());
 app.use(cors({
-  origin: "http://localhost:5173",
-  // origin: "https://snappy-notes.vercel.app",
+  // origin: "http://localhost:5173",
+  origin: "https://snappy-notes.vercel.app",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
@@ -38,7 +38,7 @@ app.get("/", (req, res) => {
 
 
 // ✅ Signup
-app.post("/signup", async (req, res) => {
+app.post("/createAccount", async (req, res) => {
   const { fullName, email, password } = req.body;
 
   if (!fullName || !email || !password) {
