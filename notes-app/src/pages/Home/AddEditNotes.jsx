@@ -11,7 +11,6 @@ const AddEditNotes = ({ noteData, type, getAllNotes, onClose, showToastMessage }
   const [error, setError] = React.useState(null);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
-  // ✅ Reset state when modal opens or noteData changes
   useEffect(() => {
     setTitle(noteData?.title || "");
     setContent(noteData?.content || "");
@@ -89,16 +88,16 @@ const AddEditNotes = ({ noteData, type, getAllNotes, onClose, showToastMessage }
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.2 }}
-      className="relative p-6 bg-[#1A1A1A] rounded-xl border border-gray-800 shadow-2xl max-w-2xl w-full"
+      className="relative w-full max-w-2xl sm:max-w-lg md:max-w-xl lg:max-w-2xl px-4 py-6 sm:p-6 bg-[#1A1A1A] rounded-xl border border-gray-800 shadow-2xl"
     >
       {/* Close Button */}
       <motion.button
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        className="w-10 h-10 rounded-full flex items-center justify-center absolute -top-3 -right-3 bg-gray-800 hover:bg-gray-700 transition-colors"
+        className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center absolute -top-3 -right-3 bg-gray-800 hover:bg-gray-700 transition-colors"
         onClick={onClose}
       >
-        <MdClose className="text-xl text-gray-400 hover:text-white" />
+        <MdClose className="text-lg sm:text-xl text-gray-400 hover:text-white" />
       </motion.button>
 
       {/* Title Input */}
@@ -106,7 +105,7 @@ const AddEditNotes = ({ noteData, type, getAllNotes, onClose, showToastMessage }
         <label className="text-sm font-medium text-gray-400">TITLE</label>
         <input
           type="text"
-          className="text-2xl bg-[#0D0D0D] text-white outline-none p-3 rounded-lg border border-gray-700 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
+          className="text-lg sm:text-2xl bg-[#0D0D0D] text-white outline-none p-3 rounded-lg border border-gray-700 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
           placeholder="Go To Gym"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -117,7 +116,7 @@ const AddEditNotes = ({ noteData, type, getAllNotes, onClose, showToastMessage }
       <div className="flex flex-col gap-2 mb-4">
         <label className="text-sm font-medium text-gray-400">DESCRIPTION</label>
         <textarea
-          className="bg-[#0D0D0D] text-white text-sm outline-none p-3 rounded-lg border border-gray-700 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all min-h-[200px]"
+          className="bg-[#0D0D0D] text-white text-sm sm:text-base outline-none p-3 rounded-lg border border-gray-700 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all min-h-[150px] sm:min-h-[200px]"
           placeholder="Content"
           value={content}
           onChange={(e) => setContent(e.target.value)}
@@ -148,7 +147,7 @@ const AddEditNotes = ({ noteData, type, getAllNotes, onClose, showToastMessage }
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         disabled={isSubmitting}
-        className={`w-full py-3 px-4 rounded-lg font-medium transition-all flex items-center justify-center gap-2 ${
+        className={`w-full py-3 px-4 rounded-lg font-medium transition-all flex items-center justify-center gap-2 text-sm sm:text-base ${
           isSubmitting
             ? "bg-gray-700 text-gray-400"
             : "bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:shadow-lg"

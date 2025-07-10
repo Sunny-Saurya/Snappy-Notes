@@ -11,7 +11,7 @@ const NoteCard = ({
   isPinned,
   onEdit,
   onDelete,
-  onPinNote,  
+  onPinNote,
 }) => {
   return (
     <motion.div
@@ -19,7 +19,7 @@ const NoteCard = ({
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ y: -5, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.3)" }}
       transition={{ type: "spring", stiffness: 300 }}
-      className={`border border-gray-700 rounded-lg p-4 transition-all ease-in-out relative overflow-hidden 
+      className={`border border-gray-700 rounded-lg p-4 sm:p-5 md:p-6 transition-all ease-in-out relative overflow-hidden 
         ${isPinned ? "bg-gradient-to-br from-[#1E1E2A] to-[#2D2D3A]" : "bg-[#1A1A1A]"}`}
     >
       {/* Pin indicator ribbon */}
@@ -31,10 +31,10 @@ const NoteCard = ({
         </div>
       )}
 
-      <div className="flex items-center justify-between mb-3">
-        <div>
-          <h6 className="text-base font-semibold text-white">{title}</h6>
-          <span className="text-xs text-gray-400">
+      <div className="flex items-start sm:items-center justify-between gap-2 flex-wrap sm:flex-nowrap mb-3">
+        <div className="flex-1 min-w-0">
+          <h6 className="text-base sm:text-lg font-semibold text-white break-words">{title}</h6>
+          <span className="text-xs sm:text-sm text-gray-400 block">
             {moment(date).format("Do MMM YYYY")}
           </span>
         </div>
@@ -49,15 +49,15 @@ const NoteCard = ({
         </motion.button>
       </div>
 
-      <p className="text-sm text-gray-300 mb-4">
+      <p className="text-sm sm:text-base text-gray-300 mb-4 break-words">
         {content?.slice(0, 100)}{content?.length > 100 ? "..." : ""}
       </p>
 
-      <div className="flex items-center justify-between pt-3 border-t border-gray-700">
-        <div className="flex flex-wrap gap-1">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between pt-3 border-t border-gray-700 gap-3">
+        <div className="flex flex-wrap gap-2">
           {tags.map((item, index) => (
-            <span 
-              key={index} 
+            <span
+              key={index}
               className="text-xs px-2 py-1 rounded-full bg-[#0D0D0D] text-purple-300"
             >
               #{item}
